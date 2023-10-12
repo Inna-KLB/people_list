@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Peoples from '@/views/peoples/Peoples.vue'
-import Favorite from '@/views/Favorite.vue'
+import FavoriteView from '@/views/FavoriteView.vue'
+import PeoplesView from '@/views/PeoplesView.vue'
+import PeoplesProfileView from '@/views/PeoplesProfileView.vue'
 import App from '@/App.vue'
 
 const router = createRouter({
@@ -14,12 +15,17 @@ const router = createRouter({
     {
       path: '/peoples',
       name: 'peoples',
-      component: Peoples
+      component: PeoplesView
+    },
+    {
+      path: '/peoples/:id',
+      name: 'peoples-profile',
+      component: PeoplesProfileView
     },
     {
       path: '/favorite',
       name: 'favorite',
-      component: Favorite
+      component: FavoriteView
     }
   ]
 })

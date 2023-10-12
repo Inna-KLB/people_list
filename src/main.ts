@@ -2,13 +2,18 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import Favorite from './views/Favorite.vue'
-import Peoples from './views/peoples/Peoples.vue'
-import PeopleId from './views/peoples/peopleId/PeopleId.vue'
+import FavoriteView from './views/FavoriteView.vue'
+import PeoplesView from './views/PeoplesView.vue'
+import PeoplesProfileView from './views/PeoplesProfileView.vue'
+import BaseTable from './components/BaseTable.vue'
+import BaseButton from './components/BaseButton.vue'
 
 const app = createApp(App)
   .use(router)
-  .component('Favorite', Favorite)
-  .component('Peoples', Peoples)
-  .component('PeopleId', PeopleId)
+  .component('FavoriteView', FavoriteView)
+  .component('PeoplesView', PeoplesView)
+  .component('PeoplesProfileView', PeoplesProfileView)
+  .component('BaseTable', BaseTable)
+  .component('BaseButton', BaseButton)
+
   .mount('#app')
