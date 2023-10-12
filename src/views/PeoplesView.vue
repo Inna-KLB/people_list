@@ -1,19 +1,14 @@
 <script lang="ts">
 import axios from 'axios'
 import { onMounted, ref } from 'vue'
-
-export type User = {
-  name: string
-  height: string
-  mass: string
-  hair_color: string
-  url: string
-  is_favorite?: boolean
-}
+import { useStore } from 'vuex'
+import { type User } from '@/types/users.ts'
 
 export default {
   name: 'PeoplesView',
   setup() {
+    const store = useStore()
+
     const isLoadingContent = ref(false)
 
     const users = ref<User[]>()
@@ -53,8 +48,11 @@ export default {
 
     onMounted(() => {
       getAllUsers()
-      favoriteUsers.value = JSON.parse(localStorage.getItem('favorites') ?? '')
-      console.log('🚀 ~ onMounted ~  favoriteUsersJson.value:', favoriteUsers.value)
+      favoriteUsers.value = localStorage.getItem('favorites')
+        ? JSON.parse(localStorage.getItem('favorites') ?? '')
+        : []
+      console.log('🚀 ~ onMounted ~ favoriteUsers.value :', favoriteUsers.value)
+      store.commit('setFavoriteUsers', favoriteUsers.value)
     })
 
     return {

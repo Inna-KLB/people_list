@@ -21,7 +21,8 @@
 
 <script lang="ts">
 import { PropType, ref } from 'vue'
-import { User } from '@/views/PeoplesView.vue'
+import { type User } from '@/types/users'
+import { useStore } from 'vuex'
 
 export default {
   name: 'BaseTable',
@@ -32,18 +33,14 @@ export default {
     }
   },
   setup(props, { emit }) {
+    const store = useStore()
+
     const favoriteUsers = ref<User[]>([])
     favoriteUsers.value = props.data.filter((user: User) => user.is_favorite)
     const actionUser = (user: User) => {
-      if (!user.is_favorite) {
-        favoriteUsers.value.push(user)
-        emit('toggle-favorite', user.url, true)
-      } else {
-        const userId = favoriteUsers.value.findIndex((usr) => user.url === usr.url)
-        favoriteUsers.value.splice(userId, 1)
-        emit('toggle-favorite', user.url, false)
-      }
-      localStorage.setItem('favorites', JSON.stringify(favoriteUsers.value))
+      console.log('🚀 ~ actionUser ~ user:', user)
+      store.commit('toggleFavoriteUser', user)
+      emit('toggle-favorite', user.url, !user.is_favorite)
     }
 
     return {
