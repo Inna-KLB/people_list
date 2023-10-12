@@ -2,11 +2,13 @@
 import axios from 'axios'
 import { onMounted, ref } from 'vue'
 
-type User = {
+export type User = {
   name: string
   height: string
   mass: string
   hair_color: string
+  url: string
+  is_favorite?: boolean
 }
 
 export default {
@@ -15,6 +17,9 @@ export default {
     const isLoadingContent = ref(false)
 
     const users = ref<User[]>()
+    const favoriteUsers = ref<User[]>()
+
+    const textError = ref('')
 
     const getAllUsers = () => {
       isLoadingContent.value = true
@@ -26,34 +31,51 @@ export default {
             height: user.height,
             mass: user.mass,
             hair_color: user.hair_color,
-            is_favorite: false
+            is_favorite: checkFavorite(user.url),
+            url: user.url
           }))
+          isLoadingContent.value = false
         })
         .catch(function (error) {
           console.log(error)
+          textError.value = 'Something went wrong. Try it later :('
         })
-        .finally(function () {
-          isLoadingContent.value = false
-        })
+    }
+
+    const checkFavorite = (userUrl: User['url']) => {
+      return !!favoriteUsers?.value?.find((user: User) => user.url === userUrl)
+    }
+
+    const toggleUserToFavorite = (userUrl: User['url'], isFavorite: boolean) => {
+      const currentUser = users?.value?.find((user) => user.url === userUrl)
+      currentUser.is_favorite = isFavorite
     }
 
     onMounted(() => {
       getAllUsers()
+      favoriteUsers.value = JSON.parse(localStorage.getItem('favorites') ?? '')
+      console.log('🚀 ~ onMounted ~  favoriteUsersJson.value:', favoriteUsers.value)
     })
 
     return {
       isLoadingContent,
-      users
+      users,
+      textError,
+      toggleUserToFavorite
     }
   }
 }
 </script>
 
 <template>
-  <main v-if="!isLoadingContent">
-    <h2>Peoples page</h2>
-
-    <BaseTable :data="users" />
+  <main>
+    <BaseTable
+      v-if="!isLoadingContent"
+      :data="users"
+      @toggle-favorite="
+        (url: User['url'], favoriteState: boolean) => toggleUserToFavorite(url, favoriteState)
+      "
+    />
+    <div v-else v-text="textError || 'Loading data...'" />
   </main>
-  <div v-else>Load data...</div>
 </template>

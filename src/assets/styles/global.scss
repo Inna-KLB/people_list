@@ -1,5 +1,6 @@
 @import 'themes';
 @import 'button';
+@import 'table';
 
 *,
 *::before,
@@ -23,8 +24,8 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
-  line-height: 17px;
+  font-size: 14px;
+  line-height: 1.5;
   background-color: $main-bg;
   color: $color-text-black;
 }
@@ -57,4 +58,6 @@ main {
   height: 90vh;
   width: 100vw;
   padding: 0 20px 20px;
+  display: flex;
+  justify-content: center;
 }
