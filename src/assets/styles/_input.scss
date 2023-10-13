@@ -1,0 +1,53 @@
+.input-container {
+  position: relative;
+  input {
+    border-radius: 6px;
+    border: 1px solid #dde3e8;
+    padding: 6px 10px;
+    padding-left: 30px;
+    width: 300px;
+    background-image: url('data:image/svg+xml,<svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(%23clip0_865_16893)"><path d="M13.8672 13.2383L10.2526 9.68153C11.1991 8.65314 11.7807 7.29308 11.7807 5.79648C11.7803 2.59497 9.14327 0 5.89013 0C2.63699 0 0 2.59497 0 5.79648C0 8.99799 2.63699 11.593 5.89013 11.593C7.29571 11.593 8.58488 11.1068 9.59751 10.2985L13.2261 13.8694C13.4029 14.0435 13.6899 14.0435 13.8668 13.8694C14.044 13.6952 14.044 13.4125 13.8672 13.2383ZM5.89013 10.7011C3.13762 10.7011 0.906279 8.50525 0.906279 5.79648C0.906279 3.0877 3.13762 0.891822 5.89013 0.891822C8.64266 0.891822 10.874 3.0877 10.874 5.79648C10.874 8.50525 8.64266 10.7011 5.89013 10.7011Z" fill="%236E7178"/></g><defs><clipPath id="clip0_865_16893"><rect width="14" height="14" fill="white"/></clipPath></defs></svg>');
+    background-position: 10px 8px;
+    background-repeat: no-repeat;
+
+    &:hover {
+      outline: 1px solid #52b61487;
+    }
+    &:focus,
+    &:active {
+      outline: 1px solid #52b614c7;
+    }
+  }
+
+  &__results {
+    width: 300px;
+    position: absolute;
+    background-color: $white;
+    box-shadow: 0px 0px 5px 2px $color-border;
+    margin-top: 5px;
+    border-radius: 8px;
+    padding: 6px;
+    font-size: 13px;
+
+    .results {
+      padding-left: 8px;
+      list-style-position: inside;
+      &__item {
+        cursor: pointer;
+        &:hover {
+          color: $color-text-green;
+        }
+        &:active {
+          color: $color-text-green-active;
+        }
+        &:not(:first-of-type) {
+          margin-top: 5px;
+        }
+      }
+
+      &__empty {
+        text-align: center;
+      }
+    }
+  }
+}

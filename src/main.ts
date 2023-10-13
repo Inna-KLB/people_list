@@ -8,6 +8,7 @@ import PeoplesView from './views/PeoplesView.vue'
 import PeoplesProfileView from './views/PeoplesProfileView.vue'
 import BaseTable from './components/BaseTable.vue'
 import BaseButton from './components/BaseButton.vue'
+import BaseInputSearch from './components/BaseInputSearch.vue'
 
 const app = createApp(App)
   .use(router)
@@ -17,5 +18,6 @@ const app = createApp(App)
   .component('PeoplesProfileView', PeoplesProfileView)
   .component('BaseTable', BaseTable)
   .component('BaseButton', BaseButton)
+  .component('BaseInputSearch', BaseInputSearch)
 
   .mount('#app')

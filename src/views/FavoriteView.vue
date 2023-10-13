@@ -1,8 +1,30 @@
 <template>
-  <div class="favorite">
-    <h1>This is an favorite page</h1>
-  </div>
+  <main>
+    <BaseTable v-if="favoriteUsers.length" :data="favoriteUsers" />
+    <div v-else v-text="'You don\'t have favorite users :('" />
+  </main>
 </template>
+
+<script lang="ts">
+import { useStore } from 'vuex'
+import { type User } from '@/types/users.ts'
+import { computed } from 'vue'
+
+export default {
+  name: 'FavoriteView',
+
+  setup() {
+    const store = useStore()
+
+    const favoriteUsers = computed<User[]>(() => store.getters.favoriteUsers)
+    console.log('🚀 ~ setup ~ favoriteUsers:', favoriteUsers.value)
+
+    return {
+      favoriteUsers
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .favorite {

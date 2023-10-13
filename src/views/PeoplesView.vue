@@ -1,14 +1,25 @@
+<template>
+  <main>
+    <BaseInputSearch />
+    <BaseTable
+      v-if="!isLoadingContent"
+      :data="users"
+      @toggle-favorite="
+        (url: User['url'], favoriteState: boolean) => toggleUserToFavorite(url, favoriteState)
+      "
+    />
+    <div v-else v-text="textError || 'Loading data...'" />
+  </main>
+</template>
+
 <script lang="ts">
 import axios from 'axios'
 import { onMounted, ref } from 'vue'
-import { useStore } from 'vuex'
 import { type User } from '@/types/users.ts'
 
 export default {
   name: 'PeoplesView',
   setup() {
-    const store = useStore()
-
     const isLoadingContent = ref(false)
 
     const users = ref<User[]>()
@@ -38,7 +49,7 @@ export default {
     }
 
     const checkFavorite = (userUrl: User['url']) => {
-      return !!favoriteUsers?.value?.find((user: User) => user.url === userUrl)
+      return favoriteUsers?.value?.findIndex((user: User) => user.url === userUrl) > -1
     }
 
     const toggleUserToFavorite = (userUrl: User['url'], isFavorite: boolean) => {
@@ -51,8 +62,6 @@ export default {
       favoriteUsers.value = localStorage.getItem('favorites')
         ? JSON.parse(localStorage.getItem('favorites') ?? '')
         : []
-      console.log('🚀 ~ onMounted ~ favoriteUsers.value :', favoriteUsers.value)
-      store.commit('setFavoriteUsers', favoriteUsers.value)
     })
 
     return {
@@ -64,16 +73,3 @@ export default {
   }
 }
 </script>
-
-<template>
-  <main>
-    <BaseTable
-      v-if="!isLoadingContent"
-      :data="users"
-      @toggle-favorite="
-        (url: User['url'], favoriteState: boolean) => toggleUserToFavorite(url, favoriteState)
-      "
-    />
-    <div v-else v-text="textError || 'Loading data...'" />
-  </main>
-</template>

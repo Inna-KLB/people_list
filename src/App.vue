@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <nav>
     <RouterLink to="/peoples">Peoples</RouterLink>
@@ -8,4 +6,20 @@
   <RouterView />
 </template>
 
-<style scoped lang="scss"></style>
+<script lang="ts">
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
+
+export default {
+  setup() {
+    const store = useStore()
+
+    onMounted(() => {
+      const favoriteUsers = localStorage.getItem('favorites')
+        ? JSON.parse(localStorage.getItem('favorites') ?? '')
+        : []
+      store.commit('setFavoriteUsers', favoriteUsers)
+    })
+  }
+}
+</script>
