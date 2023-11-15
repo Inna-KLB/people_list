@@ -5,25 +5,14 @@
   </main>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useStore } from 'vuex'
 import { type User } from '@/types/users.ts'
 import { computed } from 'vue'
 
-export default {
-  name: 'FavoriteView',
+const store = useStore()
 
-  setup() {
-    const store = useStore()
-
-    const favoriteUsers = computed<User[]>(() => store.getters.favoriteUsers)
-    console.log('🚀 ~ setup ~ favoriteUsers:', favoriteUsers.value)
-
-    return {
-      favoriteUsers
-    }
-  }
-}
+const favoriteUsers = computed<User[]>(() => store.getters.favoriteUsers)
 </script>
 
 <style lang="scss">

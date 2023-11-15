@@ -44,12 +44,12 @@ export default {
         .get(`https://swapi.dev/api/people/?search=${inputSearch.value}`)
         .then(function ({ data }) {
           if (inputSearch.value.length) {
-          }
-          foundedUsers.value = data.results
-          if (foundedUsers.value?.length) {
-            isLoading.value = false
-          } else {
-            emptyText.value = 'No results :('
+            foundedUsers.value = data.results
+            if (foundedUsers.value?.length) {
+              isLoading.value = false
+            } else {
+              emptyText.value = 'No results :('
+            }
           }
         })
         .catch(function (error) {

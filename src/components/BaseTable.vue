@@ -32,11 +32,9 @@ export default {
       default: () => []
     }
   },
-  setup(props, { emit }) {
+  setup(_, { emit }) {
     const store = useStore()
 
-    const favoriteUsers = ref<User[]>([])
-    favoriteUsers.value = props.data.filter((user: User) => user.is_favorite)
     const actionUser = (user: User) => {
       store.commit('toggleFavoriteUser', user)
       emit('toggle-favorite', user.url, !user.is_favorite)
